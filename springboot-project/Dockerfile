@@ -1,5 +1,5 @@
 # Stage 1: Build the massive fat JAR
-FROM maven:3.9.6-eclipse-temurin-17 AS builder
+FROM maven:3.9.6-eclipse-temurin-21 AS builder
 WORKDIR /app
 
 # Copy the pom.xml and resolve dependencies separately to cache them
@@ -11,7 +11,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Stage 2: Create a slim runtime container using only the JRE
-FROM eclipse-temurin:17-jre
+FROM eclipse-temurin:21-jre
 WORKDIR /app
 
 # Copy only the compiled fat JAR from the builder stage
